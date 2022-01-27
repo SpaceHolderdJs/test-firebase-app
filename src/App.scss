@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Orbitron&family=Poppins:wght@200&family=Roboto+Slab:wght@300&display=swap");
+
+$uiColor: rgb(50, 50, 70);
+$sectionColor: rgb(30, 30, 50);
+$inputsColor: lightgray;
+$textColor: white;
+
+* {
+  font-family: "Lato", sans-serif;
+}
+
+header {
+  width: 80%;
+  height: 10%;
+  background: $sectionColor;
+  border-radius: 20px;
+  margin: 10px;
+  color: $textColor;
+
+  .userPresent {
+    margin-left: 10px;
+  }
+
+  button {
+    margin-right: 10px;
+  }
+}
+
+main {
+  width: 80%;
+  height: 60%;
+  border-radius: 20px;
+  overflow: hidden;
+  color: $textColor;
+}
+
+aside {
+  width: 20%;
+  height: 100%;
+  background: $sectionColor;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+section {
+  width: 80%;
+  height: 100%;
+  background: $uiColor;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+button,
+textarea {
+  width: auto;
+  border: 2px solid white;
+  outline: none;
+  border-radius: 20px;
+  background: $inputsColor;
+  font-size: 18px;
+  margin: 10px;
+}
+
+.posts {
+  width: 100%;
+  .post {
+    width: 90%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+  }
+}
+
+.userPresent {
+  background: none;
+
+  .avatar {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+  }
+
+  .avatar.small {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+.comments {
+  .comment {
+    width: 95%;
+    justify-content: flex-start !important;
+    padding: 5px;
+    background: $sectionColor;
+    margin: 5px;
+    border-radius: 20px;
+  }
+}

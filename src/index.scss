@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: lemonchiffon;
+
+  .App {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shadow {
+    box-shadow: 5px 5px 15px 1px grey;
+  }
+
+  .sp-btw {
+    justify-content: space-between !important;
+  }
+
+  .hiddenOverflow::-webkit-scrollbar {
+    visibility: hidden;
+  }
+
+  .hiddenOverflow::-webkit-scrollbar-track {
+    visibility: hidden;
+  }
+
+  .hiddenOverflow::-webkit-scrollbar-thumb {
+    visibility: hidden;
+  }
+}
