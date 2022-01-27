@@ -12,7 +12,7 @@ interface props {
   postId: string;
 }
 
-export const Comments: FC<props> = (postId) => {
+export const Comments: FC<props> = ({ postId }) => {
   const { firestore } = useContext(Context);
 
   const commentsRef = firestore.collection("comments");
@@ -27,8 +27,6 @@ export const Comments: FC<props> = (postId) => {
 
   const [toggleCreateComment, setToggleCreateComment] = useState(false);
 
-  console.log("comments", comments);
-
   return (
     <div className="col centered comments">
       <CommentsContext.Provider value={{ postId }}>
@@ -36,7 +34,7 @@ export const Comments: FC<props> = (postId) => {
           Add comment
         </button>
         {toggleCreateComment && (
-          <CreateComment postId={postId as any} commentsRef={commentsRef} />
+          <CreateComment postId={postId} commentsRef={commentsRef} />
         )}
 
         {comments &&

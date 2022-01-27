@@ -26,8 +26,6 @@ export const Channels: FC = () => {
     idField: "id",
   });
 
-  console.log("channels", channels);
-
   const [selectedChannel, setSelectedChannel] = useState({} as IChannel);
   const [togleCreateChannel, setToggleCreateChannel] = useState(false);
 

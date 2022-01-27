@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext } from "react";
 import "./App.scss";
 
 import firebase from "firebase/app";
@@ -6,9 +6,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Auth } from "./components/Auth";
-import { Posts } from "./components/posts/Posts";
 import { Channels } from "./components/channels/Channels";
 import { UserPresent } from "./components/UserPresent";
 
@@ -30,7 +28,6 @@ export const Context = createContext({} as any);
 
 function App() {
   const [user] = useAuthState(auth as any);
-  console.log("user", user);
 
   if (!user) return <Auth auth={auth} />;
 

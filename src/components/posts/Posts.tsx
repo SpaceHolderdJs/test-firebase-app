@@ -21,8 +21,6 @@ export const Posts: FC<props> = ({ channelId }) => {
   const [posts] = useCollectionData(query, { idField: "id" });
   const [toggleCreatePost, setToggleCreatePost] = useState(false);
 
-  console.log("posts", posts);
-
   return (
     <div className="posts col centered">
       <div className="row centered sp-btw">

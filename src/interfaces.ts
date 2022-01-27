@@ -8,10 +8,6 @@ export interface IPost {
     id: string
 }
 
-export interface IUser {
-    id: string
-}
-
 export interface IComment {
     userId: string,
     message: string,
