@@ -1,60 +1,62 @@
-import React, {
-  useContext,
-  FC,
-  useState,
-  useEffect,
-  createContext,
-} from "react";
+import React, { FC, useState, useContext, useEffect } from "react";
+import { MainContext } from "../layout/Main";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { Data } from "react-firebase-hooks/firestore/dist/firestore/types";
-import { Context } from "../../App";
 import { IChannel, IPost } from "../../interfaces";
 import { Channel } from "./Channel";
 import { CreateChannel } from "./CreateChannel";
+import { DeleteChannel } from "./DeleteChannel";
+import useService from "../../hooks/useService";
+import { query } from "firebase/firestore";
+import idConverter from "../../converters/id.converter";
 
-export const ChannelContext = createContext({
-  selectedChannel: {} as IChannel,
+import { Button, Column, Row } from "../layout/styles";
+import { Context } from "../../App";
+import { styled } from "@stitches/react";
+
+const StyledChannels = styled(Column, {
+  ".activeChannel": {
+    fontWeight: "700",
+  },
+
+  span: {
+    cursor: "pointer",
+  },
+
+  h3: {
+    fontWeight: "700",
+  },
 });
 
 export const Channels: FC = () => {
-  const { firestore } = useContext(Context);
+  const { user } = useContext(Context);
+  const userChannelsService = useService("userData").channels(user.uid);
+  const q = query(userChannelsService.ref).withConverter(idConverter);
 
-  const channelsRef = firestore.collection("channels");
-  const query = channelsRef;
+  const [channels] = useCollectionData(q);
 
-  const [channels] = useCollectionData(query, {
-    idField: "id",
-  });
-
-  const [selectedChannel, setSelectedChannel] = useState({} as IChannel);
-  const [togleCreateChannel, setToggleCreateChannel] = useState(false);
+  const { activeTab, setActiveTab } = useContext(MainContext);
 
   return (
-    <main className="row centered shadow">
-      <ChannelContext.Provider value={{ selectedChannel }}>
-        <aside className="hiddenOverflow">
-          <div className="row centered sp-btw">
-            <h3>Channels</h3>
-            <button onClick={() => setToggleCreateChannel(!togleCreateChannel)}>
-              +
-            </button>
-          </div>
-          {togleCreateChannel && <CreateChannel channelsRef={channelsRef} />}
-          <div className="col">
-            {channels &&
-              channels.map((channel) => (
-                <button
-                  onClick={() => setSelectedChannel(channel as Data<IChannel>)}
-                  key={channel.id}>
-                  {channel.name}
-                </button>
-              ))}
-          </div>
-        </aside>
-        <section className="hiddenOverflow">
-          {selectedChannel.name && <Channel channel={selectedChannel} />}
-        </section>
-      </ChannelContext.Provider>
-    </main>
+    <StyledChannels w={100} className={`hiddenOverflow `}>
+      <Row w={90} positioning="sp-btw">
+        <h3>Channels</h3>
+      </Row>
+      <Column w={90} positioning="centered">
+        {channels &&
+          channels?.map((channel: any) => (
+            <Row
+              w={100}
+              m={5}
+              positioning={"sp-btw"}
+              key={channel.id}
+              className={channel.id === activeTab?.id ? "activeChannel" : ""}>
+              <span onClick={() => setActiveTab(channel as IChannel)}>
+                # {channel.name}
+              </span>
+              {/* <DeleteChannel channel={channel as IChannel} /> */}
+            </Row>
+          ))}
+      </Column>
+    </StyledChannels>
   );
 };

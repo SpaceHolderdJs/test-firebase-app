@@ -1,7 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@5 00&display=swap");
+
+$borderColor: grey;
+$darkGreen: #05473c;
+$lightGreen: #54ecca;
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: lemonchiffon;
 
   .App {
     width: 100vw;
@@ -9,26 +18,12 @@ body {
     overflow: hidden;
   }
 
-  .row {
-    display: flex;
-  }
-
-  .col {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .centered {
-    align-items: center;
-    justify-content: center;
-  }
-
   .shadow {
     box-shadow: 5px 5px 15px 1px grey;
   }
 
-  .sp-btw {
-    justify-content: space-between !important;
+  .hiddenOverflow {
+    scroll-behavior: smooth;
   }
 
   .hiddenOverflow::-webkit-scrollbar {
@@ -42,4 +37,33 @@ body {
   .hiddenOverflow::-webkit-scrollbar-thumb {
     visibility: hidden;
   }
+
+  .active {
+    background-color: $darkGreen;
+    color: white;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 }
+
+// .mentionInput__highlighter {
+//   color: red !important;
+
+// .mentionInput__highlighter__substring {
+//   visibility: visible !important;
+//   background: grey;
+//   border-radius: 10px;
+// }
+
+// .ment {
+//   border: 1px solid black;
+//   border-radius: 5px;
+// }
+
+//   .mentionInput__highlighter__substring:before {
+//     content: "!!!";
+//   }
+// }

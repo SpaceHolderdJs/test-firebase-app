@@ -1,20 +1,42 @@
-import firebase from "firebase/app";
+import { auth } from "../firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import React, { FC } from "react";
+import { Button, Column } from "./layout/styles";
+import { IUserData } from "../interfaces";
+import useService from "../hooks/useService";
 
-interface props {
-  auth: any;
-}
+export const Auth: FC = () => {
+  const userDataService = useService("userData").default;
 
-export const Auth: FC<props> = ({ auth }) => {
-  const singInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+  const singInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    const res = await signInWithPopup(auth, provider);
+
+    const { user } = res;
+
+    if (user) {
+      const userData: any = await userDataService.getOne(user.uid);
+
+      const { displayName, photoURL, email } = user;
+
+      console.log(user);
+
+      !userData &&
+        (await userDataService.add(
+          {
+            name: displayName,
+            avatarUrl: photoURL,
+            email,
+          } as Omit<IUserData, "id">,
+          user.uid
+        ));
+    }
   };
 
   return (
-    <div className="col centered">
+    <Column positioning={"centered"}>
       <h1>Please login</h1>
-      <button onClick={singInWithGoogle}>Singn in with Google</button>
-    </div>
+      <Button onClick={singInWithGoogle}>Singn in with Google</Button>
+    </Column>
   );
 };
